@@ -1,8 +1,17 @@
-main
-{
-    /* scroll horizontally as needed */
-    overflow-x: auto;
-
+main {
     /* center contents */
     text-align: center;
+    
+}
+
+.center-form { 
+
+    margin: 0 auto; 
+    width:250px;
+    
+}
+
+
+body {
+    background-color: #E9EBEE;
 }
