@@ -5,10 +5,11 @@ import sqlite3
 from flask import redirect, render_template, request, session
 from functools import wraps
 
-con = sqlite3.connect('awit.db')
 
 def check_login(username, password):
-    # returns userid if login is valid
+    """returns userid if login is valid"""
+
+    con = sqlite3.connect('awit.db')
 
     # get rows for queries instead of a tuple
     con.row_factory = sqlite3.Row
