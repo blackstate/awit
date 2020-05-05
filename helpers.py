@@ -8,6 +8,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from markupsafe import escape
+from functools import wraps
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -33,6 +34,10 @@ def count_user(username):
     db.execute('select count(id) from users where username = :username', {"username" : username})
     rows = db.fetchall()
 
+    # commit changes and close sqlite session
+    con.commit()
+    con.close()
+
     count = rows[0]["count(id)"]
 
     return count
@@ -52,10 +57,8 @@ def check_login(username, password):
     # place query dict in a variable
     rows = db.fetchall()
 
-    # commit changes
+    # commit changes and close sqlite session
     con.commit()
-
-    # close sqlite session
     con.close()
 
     return rows[0]["id"]
@@ -74,10 +77,8 @@ def check_password(username,password):
     # place query dict in a variable
     rows = db.fetchall()
 
-    # commit changes
+    # commit changes and close sqlite session
     con.commit()
-
-    # close sqlite session
     con.close()
 
     if not check_password_hash(rows[0]["hash"], password):
@@ -96,8 +97,11 @@ def register_user(username, password):
     # execute query
     db = con.cursor()
     db.execute('INSERT INTO users (username, hash) values (:username, :password)', {"username" : username, "password" : password})
+    
+    # commit changes and close sqlite session
     con.commit()
     con.close()
+
     return
 
 
