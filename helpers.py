@@ -1,10 +1,41 @@
 import os
-import urllib.parse
+import re
 import sqlite3
 
-from flask import redirect, render_template, request, session
-from functools import wraps
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
+from flask_session import Session
+from tempfile import mkdtemp
+from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
+from werkzeug.security import check_password_hash, generate_password_hash
+from markupsafe import escape
 
+def apology(message, code=400):
+    """Render message as an apology to user."""
+    def escape(s):
+
+        for old, new in [("-", "--"), ("_", "__"), ("?", "~q"),
+                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
+            s = s.replace(old, new)
+        return s
+
+    return render_template("apology.html", code=code, message=escape(message)), code
+
+def count_user(username):
+    """checks if user exists in table"""
+
+    con = sqlite3.connect('awit.db')
+
+    # get rows for queries instead of a tuple
+    con.row_factory = sqlite3.Row
+    
+    # execute query
+    db = con.cursor()
+    db.execute('select count(id) from users where username = :username', {"username" : username})
+    rows = db.fetchall()
+
+    count = rows[0]["count(id)"]
+
+    return count
 
 def check_login(username, password):
     """returns userid if login is valid"""
@@ -21,10 +52,6 @@ def check_login(username, password):
     # place query dict in a variable
     rows = db.fetchall()
 
-    # check if user exists in table
-    if len(rows) != 1:  #or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-        return apology("invalid username and/or password", 403)
-
     # commit changes
     con.commit()
 
@@ -32,6 +59,47 @@ def check_login(username, password):
     con.close()
 
     return rows[0]["id"]
+
+def check_password(username,password):
+
+    con = sqlite3.connect('awit.db')
+
+    # get rows for queries instead of a tuple
+    con.row_factory = sqlite3.Row
+    
+    # execute query
+    db = con.cursor()
+    db.execute('SELECT * FROM users WHERE username = :username', {"username" : username})
+
+    # place query dict in a variable
+    rows = db.fetchall()
+
+    # commit changes
+    con.commit()
+
+    # close sqlite session
+    con.close()
+
+    if not check_password_hash(rows[0]["hash"], password):
+        return False
+    else:
+        return True
+
+def register_user(username, password):
+    """inserts user in the user table"""
+
+    con = sqlite3.connect('awit.db')
+
+    # get rows for queries instead of a tuple
+    con.row_factory = sqlite3.Row
+    
+    # execute query
+    db = con.cursor()
+    db.execute('INSERT INTO users (username, hash) values (:username, :password)', {"username" : username, "password" : password})
+    con.commit()
+    con.close()
+    return
+
 
 
 def login_required(f):
@@ -47,14 +115,5 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def apology(message, code=400):
-    """Render message as an apology to user."""
-    def escape(s):
 
-        for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
-                         ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
-            s = s.replace(old, new)
-        return s
-
-    return render_template("apology.html", code=code, message=escape(message)), code
 

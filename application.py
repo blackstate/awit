@@ -10,7 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from markupsafe import escape
 #from flask_login import LoginManager, UserMixin, current_user, login_user
 
-from helpers import login_required, apology, check_login
+from helpers import check_password, register_user, count_user, login_required, apology, check_login
 
 # Configure application
 app = Flask(__name__)
@@ -45,7 +45,7 @@ def index():
 
     # Print user id   
     else:
-        test = "benta bryle butaw bisakol bisaya bagsik boogieman boomer bibo bata"
+        test = "None"
 
     return render_template("index.html", test=test)
 
@@ -60,14 +60,13 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # Ensure username was submitted
-        if not username:
-            return apology("must provide username", 403)
+        # Ensure username or password was submitted
+        if not username or not password:
+            return apology("invalid username or password", 403)
 
-        # Ensure password was submitted
-        elif not username:
-            return apology("must provide password", 403)
-
+        # check if user exists in table
+        if count_user(username) != 1 or check_password(username,password) == False:
+            return apology("invalid username or password", 403)
         # Query database for username
         userid = check_login(username, password)
             
@@ -92,5 +91,26 @@ def logout():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
 
-    return render_template("register.html")
+        username = request.form.get("username")
+        password = request.form.get("password")
+        passwordRepeat = request.form.get("passwordRepeat")
+
+        if not username or not password:
+            return apology("invalid username or password", 403)
+        if password != passwordRepeat:
+            return apology("passwords must match", 403)
+        if re.match("^[A-Za-z0-9]*$", username) == None:
+            return apology("only letters and numbers in username", 403)
+        if count_user(username) > 0:
+            return apology("username taken", 403)
+
+        passwordHash = generate_password_hash(password)
+
+        register_user(username,passwordHash)
+
+        return redirect("/login")
+
+    else:
+        return render_template("register.html")
