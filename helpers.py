@@ -42,8 +42,8 @@ def count_user(username):
 
     return count
 
-def check_login(username, password):
-    """returns userid if login is valid"""
+def get_login(username, password):
+    """checks if login is valid"""
 
     con = sqlite3.connect('awit.db')
 
@@ -60,6 +60,13 @@ def check_login(username, password):
     # commit changes and close sqlite session
     con.commit()
     con.close()
+
+    return rows
+
+def get_userid(username,password):
+    """returns userid if login is valid"""
+
+    rows = get_login(username,password)
 
     return rows[0]["id"]
 

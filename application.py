@@ -10,7 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from markupsafe import escape
 #from flask_login import LoginManager, UserMixin, current_user, login_user
 
-from helpers import check_password, register_user, count_user, login_required, apology, check_login
+from helpers import check_password, register_user, count_user, login_required, apology, get_login, get_userid
 
 # Configure application
 app = Flask(__name__)
@@ -35,16 +35,15 @@ def after_request(response):
 
 # index page 
 @app.route('/')
-@login_required
 def index():
     
     # Placeholder 
     if "user_id" in session:
-        test = session["user_id"]
+        test = "Logged in as user: " + str(session["user_id"])
 
     # Print user id   
     else:
-        test = "None"
+        test = "Home not logged in"
 
     return render_template("index.html", test=test)
 
@@ -67,7 +66,7 @@ def login():
         if count_user(username) != 1 or check_password(username,password) == False:
             return apology("invalid username or password", 403)
         # Query database for username
-        userid = check_login(username, password)
+        userid = get_userid(username, password)
             
         # Remember which user has logged in
         session["user_id"] = userid
