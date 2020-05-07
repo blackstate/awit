@@ -8,7 +8,7 @@
         <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <link href="static/icon.png" rel="icon">
+        <link href="static/iconblack.png" rel="icon">
 
         <!-- Stylesheet link-->
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -20,25 +20,25 @@
     <body>
         <!-- Navbar -->
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light nav">
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
                 <a class="navbar-brand" href="/">
                     <img src="/static/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                    Awit
+                    
                 </a>
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if "user_id" in session %}
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 ">
+                            <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
                         </ul>
                     
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="/logout">Logout</a></li>
                         </ul>
                         
                     {%else%}
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="/login">Log In</a></li>
                         </ul>
                     {% endif %}
                 </div>

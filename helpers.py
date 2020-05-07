@@ -67,7 +67,7 @@ def get_userid(username,password):
     """returns userid if login is valid"""
 
     rows = get_login(username,password)
-
+    
     return rows[0]["id"]
 
 def check_password(username,password):

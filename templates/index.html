@@ -6,6 +6,17 @@
 
 {% block main %}
 
-<p>{{test}}</p>
+<div class = "center"><p>{{test}}</p></div>
 
+{% if "user_id" in session %}
+<form>
+    <div class = "status-box">
+        <div class="form-group">
+            <label for="statustext">Status</label>
+            <textarea class="form-control" id="statustext" rows="3"></textarea>
+        </div>
+        <button type="submit" id="status-button" class="btn btn-secondary">Submit</button>
+    </div>
+  </form>
+{% endif %}
 {% endblock %}
