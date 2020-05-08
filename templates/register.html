@@ -6,8 +6,10 @@
 
 {% block main %}
 
-<div class="form-box">
+<div class="form-box text-center">
     <form class="" action="/register" method="post">
+        <img class="mb-4" src="/static/iconblack.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
         </div>
@@ -17,7 +19,8 @@
         <div class="form-group">
             <input class="form-control" name="passwordRepeat" placeholder="Repeat Password" type="password">
         </div>
-        <button class="btn btn-secondary" type="submit">Register</button>
+        <!-- <button class="btn btn-secondary" type="submit">Register</button> -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
 </div>  
 

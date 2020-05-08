@@ -43,7 +43,7 @@ def index():
 
     # Print user id   
     else:
-        test = "Home not logged in"
+        test = "Not logged in"
 
     return render_template("index.html", test=test)
 
