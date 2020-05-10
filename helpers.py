@@ -132,6 +132,23 @@ def register_user(username, password):
 
     return
 
+def add_status(status, userid):
+    """inserts status in the status table"""
+
+    con = sqlite3.connect('awit.db')
+
+    # get rows for queries instead of a tuple
+    con.row_factory = sqlite3.Row
+    
+    # execute query
+    db = con.cursor()
+    db.execute('INSERT INTO status(text,userid) VALUES(:status, :userid)', {"status" : status, "userid" : userid})
+    
+    # commit changes and close sqlite session
+    con.commit()
+    con.close()
+
+    return
 
 
 def login_required(f):

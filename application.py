@@ -10,7 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from markupsafe import escape
 #from flask_login import LoginManager, UserMixin, current_user, login_user
 
-from helpers import check_password, register_user, count_user, login_required, apology, get_login, get_userid, get_username
+from helpers import check_password, register_user, count_user, login_required, apology, get_login, get_userid, get_username, add_status
 
 # Configure application
 app = Flask(__name__)
@@ -52,8 +52,11 @@ def index():
         
         statusText = request.form.get("userstatus")
         
+        # if status textarea is empty
         if not statusText:
-            return apology("Status is blank. Please try again.", 403)
+            return redirect('/')
+        
+        add_status(statusText, session["user_id"])
 
    
 
