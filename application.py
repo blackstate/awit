@@ -77,7 +77,9 @@ def login():
 
         # check if user exists in table
         if count_user(username) != 1 or check_password(username,password) == False:
-            return apology("invalid username or password", 403)
+            flash('Invalid username or password')
+            return render_template("/login.html")
+
         # Query database for username
         userid = get_userid(username, password)
             
@@ -109,13 +111,17 @@ def register():
         passwordRepeat = request.form.get("passwordRepeat")
 
         if not username or not password:
-            return apology("invalid username or password", 403)
-        if password != passwordRepeat:
-            return apology("passwords must match", 403)
-        if re.match("^[A-Za-z0-9]*$", username) == None:
-            return apology("only letters and numbers in username", 403)
-        if count_user(username) > 0:
-            return apology("username taken", 403)
+            flash('Input valid username or password')
+            return render_template("register.html")
+        elif password != passwordRepeat:
+            flash('Passwords do not match')
+            return render_template("register.html")
+        elif re.match("^[A-Za-z0-9]*$", username) == None:
+            flash('Please use only numbers and letters for username')
+            return render_template("register.html")
+        elif count_user(username) > 0:
+            flash('Username taken')
+            return render_template("register.html")
 
         passwordHash = generate_password_hash(password)
 
