@@ -70,6 +70,27 @@ def get_userid(username,password):
     
     return rows[0]["id"]
 
+def get_username(userid):
+    """gets the username with userid"""
+    
+    con = sqlite3.connect('awit.db')
+
+    # get rows for queries instead of a tuple
+    con.row_factory = sqlite3.Row
+    
+    # execute query
+    db = con.cursor()
+    db.execute('SELECT username FROM users WHERE id = :userid', {"userid" : userid})
+
+    # place query dict in a variable
+    rows = db.fetchall()
+
+    # commit changes and close sqlite session
+    con.commit()
+    con.close()
+
+    return rows[0]["username"]
+
 def check_password(username,password):
 
     con = sqlite3.connect('awit.db')

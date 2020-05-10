@@ -10,7 +10,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from markupsafe import escape
 #from flask_login import LoginManager, UserMixin, current_user, login_user
 
-from helpers import check_password, register_user, count_user, login_required, apology, get_login, get_userid
+from helpers import check_password, register_user, count_user, login_required, apology, get_login, get_userid, get_username
 
 # Configure application
 app = Flask(__name__)
@@ -34,18 +34,30 @@ def after_request(response):
     return response
 
 # index page 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    
+
     # Placeholder 
     if "user_id" in session:
-        test = "Logged in as user: " + str(session["user_id"])
+
+        username = get_username(int(session["user_id"]))
+        currUser = "Logged in as " + username + " [" + str(session["user_id"]) + "]"
 
     # Print user id   
     else:
-        test = "Not logged in"
+        currUser = "Not logged in"
 
-    return render_template("index.html", test=test)
+
+    if request.method == "POST":
+        
+        statusText = request.form.get("userstatus")
+        
+        if not statusText:
+            return apology("Status is blank. Please try again.", 403)
+
+   
+
+    return render_template("index.html", test=currUser)
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -60,7 +72,8 @@ def login():
 
         # Ensure username or password was submitted
         if not username or not password:
-            return apology("invalid username or password", 403)
+            flash('Input valid username or password')
+            return render_template("login.html")
 
         # check if user exists in table
         if count_user(username) != 1 or check_password(username,password) == False:

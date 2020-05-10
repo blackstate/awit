@@ -9,22 +9,64 @@
 <div class = "current-user"><p class="lead text-muted"><em>{{test}}</em></p></div>
 
 {% if "user_id" in session %}
-<form>
-    <div class="main-feed">
-        <div class="form-group status-box">
-            <form>
-            <div class="">
-                <textarea class="form-control" id="userstatus" maxlength="150" rows="3" placeholder="What's up?"></textarea>
+<div class="main-feed">
+    <div class="status-box">
+        <form class="form-group" action="/" method="post">
+
+            <textarea class="form-control" id="userstatus" name="userstatus" maxlength="150" rows="3" placeholder="What's up?"></textarea>
+
+            <div class="status-actions btn-block d-flex flex-row-reverse align-items-center">
+                <button type="submit" class="btn btn-primary" id="btn-submit"><strong>Awit!</strong></button>
+                <div class="status-buttons">
+                    <button><img src="/static/emoji.svg"></button>
+                </div>
+                <div class="status-buttons"> 
+                    <button><img src="/static/photo.svg"></button>
+                </div>
             </div>
-            <div class="button-block btn-block d-flex flex-row-reverse align-items-center">
-                <button type="submit" class="btn btn-primary" id="btn-submit"><strong>Awit!<strong></button>
-                <svg class="status-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path  d="M0 0h24v24H0V0z" fill="none"/><path d="M0 0h24v24H0V0z" fill="none"/><circle fill="#007bff" cx="15.5" cy="9.5" r="1.5"/><circle fill="#007bff" cx="8.5" cy="9.5" r="1.5"/><circle fill="#007bff" cx="15.5" cy="9.5" r="1.5"/><circle fill="#007bff" cx="8.5" cy="9.5" r="1.5"/><path fill="#007bff" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-2.5c2.33 0 4.32-1.45 5.12-3.5h-1.67c-.69 1.19-1.97 2-3.45 2s-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5z"/></svg>
-                <svg class="status-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path fill="#007bff" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>  
+
+        </form> 
+    </div>
+    <div class="user-post">
+        <div class="post-header">
+            <div class="post-user mb-0">@gianbenta</div>
+            <div class="post-date mb-1 text-muted">5hours ago</div>
+        </div>
+        <div class="post-content">
+            <p class="card-text mb-auto">Talo nanaman ako kay neyra PUTEK!</p>
+        </div>
+        <div class="post-actions">
+            <div class="like-post">
+                <button><img src="/static/like.svg"></button>
             </div>
-            </form>
+            <div class="divider"></div>
+            <div class="retweet-post">
+                <button><img src="/static/retweet.svg"></button>
+            </div>
+            
         </div>
     </div>
-</form>
+    <div class="user-post">
+        <div class="post-header">
+            <div class="post-user mb-0">@gianbenta</div>
+            <div class="post-date mb-1 text-muted">5hours ago</div>
+        </div>
+        <div class="post-content">
+            <p class="card-text mb-auto">Bryle bakit ang benta mo tanong ko lang huh.</p>
+        </div>
+        <div class="post-actions">
+            <div class="like-post">
+                <button><img src="/static/like.svg"></button>
+            </div>
+            <div class="divider"></div>
+            <div class="retweet-post">
+                <button><img src="/static/retweet.svg"></button>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
 {% else %}
 <div class="center container">
     <img class="mb-4" src="/static/iconblack.png" alt="" width="72" height="72">
@@ -35,5 +77,7 @@
     <p class="lead text-muted">Portland esse DIY, yr aute ipsum kogi tattooed culpa street art laborum helvetica iceland normcore biodiesel. Palo santo lorem meggings, poutine meh reprehenderit af meditation est tousled. Brunch normcore velit, ad banh mi 90's kitsch ea viral irure squid iPhone. Locavore jean shorts cardigan coloring book etsy, sunt humblebrag tumblr woke. Hella ullamco labore vice readymade laborum quinoa, yr artisan kitsch flexitarian put a bird on it esse williamsburg duis. La croix magna health goth schlitz waistcoat XOXO et adaptogen exercitation polaroid commodo. Labore woke exercitation keytar salvia.</p>
 </div>
 
+
 {% endif %}
 {% endblock %}
+

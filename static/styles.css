@@ -4,13 +4,61 @@ main {
     
 }
 
+button {
+    padding: 0px 0px 0px 0px;
+    color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+    outline: inherit;
+    background-color: transparent;
+    
+}
 
+body {
+    background-color: #f5f5f5;
+    color: rgb(20, 23, 26);
+}
+
+#button-submit {
+    text-align: center!;
+}
+
+#statustext {
+    width: 50em;
+}
+
+#status-button { 
+    margin-left: 20px;
+}
+
+#userstatus {
+    resize: none;
+    font-size: 18px;
+    border: none;
+}
+
+.alert-error {
+    position: fixed;
+    left: 0;
+    right: 0; 
+    margin: 0 auto;
+    width: 30%;
+    margin-top: 56px;
+}
+
+.error {
+    margin: 0 auto;
+    width: 400px;
+    margin-top: 50px;
+}
 .form-box {
     width: 300px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 120px;
     text-align: center;
 }
+
 .center {
     text-align: center;
     margin: 0 auto;
@@ -23,48 +71,19 @@ main {
     left: 15px;
 }
 
-main {
-    
-}
-
-body {
-    background-color: #f5f5f5;
-    color: rgb(20, 23, 26);
-}
-
-#button-submit {
-    text-align: center!;
-}
-#statustext {
-    width: 50em;
-}
-
-#status-button { 
-    margin-left: 20px;
-}
-
 .main-feed {
+    margin-top: 30px;
+}
+.status-box {
+    padding-top: 15px;
     width: 600px;
     height: auto;
     background-color: white;
     border: 1px solid rgb(230, 236, 240);
-    margin: 0 auto;
     margin-top: 30px;
-  }
-  
-#userstatus {
-    resize: none;
-    font-size: 18px;
-    border: none;
-}
-
-.status-box {
-    padding-top: 15px;
-}
-
-.button-block {
-    display: flex;
-    margin-top: 8px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #btn-submit {
@@ -73,10 +92,51 @@ body {
     margin-left: 5px;
 }
 
-.include {
-    margin-right: 10px;
+.status-actions {
+    display: flex;
+    margin-top: 8px;
 }
 
-.status-icon {
-    margin-right: 5px;
+.status-buttons {
+    padding: 5px;
+}
+
+.user-post {
+    margin: 0 auto;
+    width: 600px;
+    height: auto;
+    background-color: white;
+    border: 1px solid rgb(230, 236, 240);
+    padding: 10px 10px 10px 20px;
+}
+.post-header{
+    display: flex;
+}
+
+.post-date{
+    margin-left: 10px;
+}
+
+.post-user {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.post-content {
+    overflow-wrap: break-word;
+    font-weight: 350;
+}
+
+.post-actions {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.divider {
+    border-right: 1px solid #e6ecf0;
+}
+
+.include {
+    margin-right: 10px;
 }
