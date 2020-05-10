@@ -57,6 +57,8 @@ def index():
             return redirect('/')
         
         add_status(statusText, session["user_id"])
+        return render_template("index.html", test=currUser)
+
 
    
 
